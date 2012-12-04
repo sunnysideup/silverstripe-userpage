@@ -1,0 +1,36 @@
+###############################################
+UserPage Module
+###############################################
+
+Maintainer Contact
+-----------------------------------------------
+nicolaas [at] sunnysideup.co.nz
+
+Requirements
+-----------------------------------------------
+SS 2.3+
+
+
+Documentation
+-----------------------------------------------
+
+
+Installation Instructions
+-----------------------------------------------
+1. Find out how to add modules to SS and add module as per usual.
+2. copy configurations from this module's _config.php file
+into mysite/_config.php file and edit settings as required.
+NB. the idea is not to edit the module at all, but instead customise
+it from your mysite folder, so that you can upgrade the module without redoing the settings.
+
+Usage Overview
+-----------------------------------------------
+This is a one-stop shop for a user to register,
+sign-in, update details, log-out, and log back in.
+
+
+Thank you
+-----------------------------------------------
+This is heavily based on the Silverstripe
+Registration module.
+
