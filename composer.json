@@ -1,5 +1,5 @@
 {
-	"name": "silverstripe/userpage",
+	"name": "sunnysideup/userpage",
 	"type": "silverstripe-module",
 	"description": "add a one-stop-shop for users: signup, update details, etc...",
 	"homepage": "http://www.silverstripe-webdevelopment.com",
