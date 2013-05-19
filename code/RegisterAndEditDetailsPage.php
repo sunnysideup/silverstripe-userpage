@@ -51,7 +51,7 @@ class RegisterAndEditDetailsPage extends Page {
 	public function link_for_going_to_page_via_making_user($link) {
 		$registerAndEditDetailsPage = DataObject::get_one("RegisterAndEditDetailsPage");
 		if($registerAndEditDetailsPage) {
-			return $registerAndEditDetailsPage->Link()."/?BackURL=".urlencode($link);
+			return $registerAndEditDetailsPage->Link()."?BackURL=".urlencode($link);
 		}
 	}
 
