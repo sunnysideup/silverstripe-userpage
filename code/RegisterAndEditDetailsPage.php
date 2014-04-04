@@ -6,18 +6,17 @@
 	*/
 class RegisterAndEditDetailsPage extends Page {
 
-	static $icon = "userpage/images/treeicons/RegisterAndEditDetailsPage";
+	private static $icon = "userpage/images/treeicons/RegisterAndEditDetailsPage";
 
-	static $can_be_root = false;
+	private static $can_be_root = false;
 
-	static $db = array(
+	private static $db = array(
 		"ThankYouTitle" => "Varchar(255)",
 		"ThankYouContent" => "HTMLText",
 		"WelcomeTitle" => "Varchar(255)",
 		"WelcomeContent" => "HTMLText",
 		"TitleLoggedIn" => "Varchar(255)",
 		"MenuTitleLoggedIn" => "Varchar(255)",
-		"MetaTitleLoggedIn" => "Varchar(255)",
 		"ContentLoggedIn" => "HTMLText",
 		"ErrorEmailAddressAlreadyExists" => "Varchar(255)",
 		"ErrorBadEmail" => "Varchar(255)",
@@ -25,11 +24,11 @@ class RegisterAndEditDetailsPage extends Page {
 		"ErrorMustSupplyPassword" => "Varchar(255)"
 	);
 
-	static $register_group_title = "Registered users";
+	private static $register_group_title = "Registered users";
 
-	static $register_group_code = "registrations";
+	private static $register_group_code = "registrations";
 
-	static $register_group_access_key = "REGISTRATIONS";
+	private static $register_group_access_key = "REGISTRATIONS";
 
 	protected function showLoggedInFields() {
 		if(!$this->isCMSRead() && Member::currentUser()  ) {
@@ -38,7 +37,7 @@ class RegisterAndEditDetailsPage extends Page {
 	}
 
 	protected function isCMSRead () {
-		return $this->isCMS || Director::urlParam("URLSegment") == "admin";
+		return $this->isCMS || Controller::curr()->getRequest()->param("URLSegment") == "admin";
 	}
 
 	/**
@@ -49,7 +48,7 @@ class RegisterAndEditDetailsPage extends Page {
 	 **/
 
 	public function link_for_going_to_page_via_making_user($link) {
-		$registerAndEditDetailsPage = DataObject::get_one("RegisterAndEditDetailsPage");
+		$registerAndEditDetailsPage = RegisterAndEditDetailsPage::get()->first();
 		if($registerAndEditDetailsPage) {
 			return $registerAndEditDetailsPage->Link()."?BackURL=".urlencode($link);
 		}
@@ -58,30 +57,31 @@ class RegisterAndEditDetailsPage extends Page {
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
 		$this->isCMS = true;
-		$fields->addFieldToTab('Root.Content.LoggedIn', new TextField('TitleLoggedIn', 'Title when user is Logged In'));
-		$fields->addFieldToTab('Root.Content.LoggedIn', new TextField('MenuTitleLoggedIn', 'Navigation Label when user is Logged In'));
-		$fields->addFieldToTab('Root.Content.Welcome', new TextField('WelcomeTitle', 'Welcome Title (afer user creates an account)'));
-		$fields->addFieldToTab('Root.Content.Welcome', new HTMLEditorField('WelcomeContent', 'Welcome message (afer user creates an account)'));
-		$fields->addFieldToTab('Root.Content.UpdatingDetails', new TextField('ThankYouTitle', 'Thank you Title (afer user updates their details)'));
-		$fields->addFieldToTab('Root.Content.UpdatingDetails', new HTMLEditorField('ThankYouContent', 'Thank you message (afer user updates their details)'));
-		$fields->addFieldToTab('Root.Content.LoggedIn', new HTMLEditorField('ContentLoggedIn', 'Content when user is Logged In'));
-		$fields->addFieldToTab('Root.Content.ErrorMessages', new TextField('ErrorEmailAddressAlreadyExists', 'Error shown when email address is already registered'));
-		$fields->addFieldToTab('Root.Content.ErrorMessages', new TextField('ErrorBadEmail', 'Bad email'));
-		$fields->addFieldToTab('Root.Content.ErrorMessages', new TextField('ErrorPasswordDoNotMatch', 'Error shown when passwords do not match'));
-		$fields->addFieldToTab('Root.Content.ErrorMessages', new TextField('ErrorMustSupplyPassword', 'Error shown when new user does not supply password'));
+		$fields->addFieldToTab('Root.LoggedIn', new TextField('TitleLoggedIn', 'Title when user is Logged In'));
+		$fields->addFieldToTab('Root.LoggedIn', new TextField('MenuTitleLoggedIn', 'Navigation Label when user is Logged In'));
+		$fields->addFieldToTab('Root.Welcome', new TextField('WelcomeTitle', 'Welcome Title (afer user creates an account)'));
+		$fields->addFieldToTab('Root.Welcome', new HtmlEditorField('WelcomeContent', 'Welcome message (afer user creates an account)'));
+		$fields->addFieldToTab('Root.UpdatingDetails', new TextField('ThankYouTitle', 'Thank you Title (afer user updates their details)'));
+		$fields->addFieldToTab('Root.UpdatingDetails', new HtmlEditorField('ThankYouContent', 'Thank you message (afer user updates their details)'));
+		$fields->addFieldToTab('Root.LoggedIn', new HtmlEditorField('ContentLoggedIn', 'Content when user is Logged In'));
+		$fields->addFieldToTab('Root.ErrorMessages', new TextField('ErrorEmailAddressAlreadyExists', 'Error shown when email address is already registered'));
+		$fields->addFieldToTab('Root.ErrorMessages', new TextField('ErrorBadEmail', 'Bad email'));
+		$fields->addFieldToTab('Root.ErrorMessages', new TextField('ErrorPasswordDoNotMatch', 'Error shown when passwords do not match'));
+		$fields->addFieldToTab('Root.ErrorMessages', new TextField('ErrorMustSupplyPassword', 'Error shown when new user does not supply password'));
 		return $fields;
 	}
 
-	public function canCreate() {
-		$bt = defined('DB::USE_ANSI_SQL') ? "\"" : "`";
-		return !DataObject::get_one("SiteTree", "{$bt}ClassName{$bt} = 'RegisterAndEditDetailsPage'");
+	public function canCreate($member = null) {
+		return RegisterAndEditDetailsPage::get()->count() ? false : true;
 	}
 
 	public function requireDefaultRecords() {
 		parent::requireDefaultRecords();
 		$bt = defined('DB::USE_ANSI_SQL') ? "\"" : "`";
 		$update = array();
-		if(!$group = DataObject::get_one("Group", "{$bt}Code{$bt} = '".self::$register_group_code."'")) {
+		$group = Group::get()
+			->filter(array("Code" => self::$register_group_code))->first();
+		if(!$group) {
 			$group = new Group();
 			$group->Code = self::$register_group_code;
 			$group->Title = self::$register_group_title;
@@ -92,11 +92,10 @@ class RegisterAndEditDetailsPage extends Page {
 		elseif(DB::query("SELECT * FROM Permission WHERE {$bt}GroupID{$bt} = ".$group->ID." AND {$bt}Code{$bt} = '".self::$register_group_access_key."'")->numRecords() == 0) {
 			Permission::grant($group->ID, self::$register_group_access_key);
 		}
-		$page = DataObject::get_one("RegisterAndEditDetailsPage");
+		$page = RegisterAndEditDetailsPage::get()->first();
 		if(!$page) {
 			$page = new RegisterAndEditDetailsPage();
 			$page->Title = "Register";
-			$page->MetaTitle = "Register";
 			$page->URLSegment = "register";
 			$page->MenuTitle = "Register";
 			$update[] = "created RegisterAndEditDetailsPage";
@@ -113,7 +112,6 @@ class RegisterAndEditDetailsPage extends Page {
 			// WELCOME BACK
 			if(!$page->TitleLoggedIn){$page->TitleLoggedIn = "Welcome back"; $update[] =  "updated TitleLoggedIn";}
 			if(!$page->MenuTitleLoggedIn){$page->MenuTitleLoggedIn = "Welcome back"; $update[] =  "updated MenuTitleLoggedIn";}
-			if(!$page->MetaTitleLoggedIn){$page->MetaTitleLoggedIn = "Welcome back"; $update[] =  "updated MetaTitleLoggedIn";}
 			if(strlen($page->ContentLoggedIn) < 17){$page->ContentLoggedIn = "<p>Welcome back - you can do the following ....</p>"; $update[] =  "updated ContentLoggedIn";}
 
 			//THANK YOU FOR UPDATING
@@ -136,29 +134,23 @@ class RegisterAndEditDetailsPage extends Page {
 
 class RegisterAndEditDetailsPage_Controller extends Page_Controller {
 
-	protected static $fields_to_remove = array("Locale","DateFormat", "TimeFormat");
-		static function set_fields_to_remove($v) {self::$fields_to_remove = $v;}
-		static function get_fields_to_remove() {return self::$fields_to_remove;}
-		static function add_field_to_remove($s) {self::$fields_to_remove[] = $s;}
+	private static $fields_to_remove = array("Locale","DateFormat", "TimeFormat");
 
-	protected static $required_fields = array("FirstName","Email");
-		static function set_required_fields($v) {self::$required_fields = $v;}
-		static function get_required_fields() {return self::$required_fields;}
 
-	protected static $minutes_before_member_is_not_new_anymore = 30;
-		static function set_minutes_before_member_is_not_new_anymore($v) {self::$minutes_before_member_is_not_new_anymore = $v;}
-		static function get_minutes_before_member_is_not_new_anymore() {return self::$minutes_before_member_is_not_new_anymore;}
+	private static $required_fields = array("FirstName","Email");
+
+
+	private static $minutes_before_member_is_not_new_anymore = 30;
 
 	function init() {
 		parent::init();
 		if($this->showLoggedInFields()) {$field = "TitleLoggedIn";}else {$field = "Title";} $this->Title = $this->getField($field);
 		if($this->showLoggedInFields()) {$field = "MenuTitleLoggedIn";}else {$field = "MenuTitle";} $this->MenuTitle =  $this->getField($field);
-		if($this->showLoggedInFields()) {$field = "MetaTitleLoggedIn";}else {$field = "MetaTitle";} $this->MetaTitle =  $this->getField($field);
 		if($this->showLoggedInFields()) {$field = "ContentLoggedIn";}else {$field = "Content";}$this->Content =  $this->getField($field);
 	}
 
 	function index() {
-		if($this->isAjax()) {
+		if(Director::is_ajax()) {
 			return $this->renderWith(array("RegisterAndEditDetailsPageAjax", "RegisterAndEditDetailsPage"));
 		}
 		return array();
@@ -169,7 +161,7 @@ class RegisterAndEditDetailsPage_Controller extends Page_Controller {
 			Session::set('BackURL', $_REQUEST["BackURL"]);
 		}
 		$member = Member::currentUser();
-		$fields = new FieldSet();
+		$fields = new FieldList();
 
 		$passwordField = null;
 		if($member) {
@@ -177,13 +169,13 @@ class RegisterAndEditDetailsPage_Controller extends Page_Controller {
 			//if($member && $member->Password != '') {$passwordField->setCanBeEmpty(true);}
 			$action = new FormAction("submit", "Update your details");
 			$action->addExtraClass("updateButton");
-			$actions = new FieldSet($action);
+			$actions = new FieldList($action);
 		}
 		else {
 			$passwordField = new ConfirmedPasswordField("Password", "Password");
 			$action = new FormAction("submit", "Register");
 			$action->addExtraClass("registerButton");
-			$actions = new FieldSet($action);
+			$actions = new FieldList($action);
 			$member = new Member();
 		}
 		$memberFormFields = $member->getMemberFormFields();
@@ -202,7 +194,7 @@ class RegisterAndEditDetailsPage_Controller extends Page_Controller {
 		foreach(self::$required_fields as $fieldName) {
 			$fields->fieldByName($fieldName)->addExtraClass("RequiredField");
 		}
-		$requiredFields = new CustomRequiredFields(self::$required_fields);
+		$requiredFields = new RequiredFields(self::$required_fields);
 		$form = new Form($this, "Form", $fields, $actions, $requiredFields);
 		// Load any data avaliable into the form.
 		if($member) {
@@ -238,7 +230,7 @@ class RegisterAndEditDetailsPage_Controller extends Page_Controller {
 		if($emailField)  {
 			if(!$emailField->validate($form->validator)) {
 				$form->addErrorMessage("Blurb",$this->ErrorBadEmail,"bad");
-				Director::redirectBack();
+				$this->redirectBack();
 				return;
 			}
 		}
@@ -254,21 +246,19 @@ class RegisterAndEditDetailsPage_Controller extends Page_Controller {
 		}
 
 		//validation
-		if($existingMember = DataObject::get_one("Member", "{$bt}Email{$bt} = '". Convert::raw2sql($data['Email']) . "' AND {$bt}Member{$bt}.{$bt}ID{$bt} <> '$id'")) {
-			$mems = DataObject::get("Member", "{$bt}Email{$bt} = '". Convert::raw2sql($data['Email']) . "'");
+		if($existingMember = Member::get()->filter(array("Email" => Convert::raw2sql($data['Email'])))->exclude(array("ID" => $id))->first()) {
 			$form->addErrorMessage("Blurb",$this->ErrorEmailAddressAlreadyExists,"bad");
-			Director::redirectBack();
-			return;
+			return $this->redirectBack();
 		}
 		// check password fields are the same before saving
 		if($data["Password"]["_Password"] != $data["Password"]["_ConfirmPassword"]) {
 			$form->addErrorMessage("Password", $this->ErrorPasswordDoNotMatch,"bad");
-			return Director::redirectBack();
+			return $this->redirectBack();
 		}
 
 		if(!$id && !$data["Password"]["_Password"]) {
 			$form->addErrorMessage("Password", $this->ErrorMustSupplyPassword,"bad");
-			return Director::redirectBack();
+			return $this->redirectBack();
 		}
 		$password = $member->Password;
 		if(isset($data["Password"]["Password"]) && strlen($data["Password"]["Password"]) > 3) {
@@ -282,7 +272,9 @@ class RegisterAndEditDetailsPage_Controller extends Page_Controller {
 			$member->write();
 		}
 		//adding to group
-		$group = DataObject::get_one("Group", "{$bt}Code{$bt} = '".RegisterAndEditDetailsPage::$register_group_code."'");
+		$group = Group::get()
+			->filter(array("Code" => self::$register_group_code))
+			->first();
 		if($group) {
 			$member->Groups()->add($group);
 		}
@@ -301,7 +293,7 @@ class RegisterAndEditDetailsPage_Controller extends Page_Controller {
 			Session::set('BackURL', '');
 		}
 		if($link) {
-			Director::redirect($link);
+			return $this->redirect($link);
 		}
 		return array();
 	}
@@ -309,7 +301,7 @@ class RegisterAndEditDetailsPage_Controller extends Page_Controller {
 	function thanks() {
 		$member = Member::currentUser();
 		if(!$member) {
-			Director::redirect($this->Link());
+			return $this->redirect($this->Link());
 		}
 		if($this->numberOfMinutesMemberIsListed($member) < self::get_minutes_before_member_is_not_new_anymore()) {
 			$this->Title = $this->WelcomeTitle;
@@ -324,7 +316,7 @@ class RegisterAndEditDetailsPage_Controller extends Page_Controller {
 
 	function welcome() {
 		if(!Member::currentUser()) {
-			Director::redirect($this->Link());
+			return $this->redirect($this->Link());
 		}
 		$this->Title = $this->WelcomeTitle;
 		$this->Content = $this->WelcomeContent;
