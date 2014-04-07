@@ -1,6 +1,5 @@
-###############################################
 User Page
-###############################################
+================================================================================
 
 This silverstripe module adds a page where a user
 can register and update her or his details.
