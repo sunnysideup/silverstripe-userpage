@@ -1,0 +1,147 @@
+
+------------------------------------
+Files Searched
+------------------------------------
+/templates/Layout/RegisterAndEditDetailsPage.ss
+
+------------------------------------
+Summary: by search key
+------------------------------------
+
+------------------------------------
+Summary: by directory
+------------------------------------
+
+------------------------------------
+Summary: by root directory (/)
+------------------------------------
+
+------------------------------------
+Total replacements: 0
+------------------------------------
+3 matches (BASIC) for: 'new FieldSet'
+   -- Replaced in 3 places IN RegisterAndEditDetailsPage.php
+1 matches (BASIC) for: 'function canCreate()'
+   -- Replaced in 1 places IN RegisterAndEditDetailsPage.php
+11 matches (BASIC) for: 'Root.Content.'
+   -- Replaced in 11 places IN RegisterAndEditDetailsPage.php
+3 matches (COMPLEX) for: 'Director::redirect('
+   -- Replaced in 3 places IN RegisterAndEditDetailsPage.php
+4 matches (COMPLEX) for: 'Director::redirectBack('
+   -- Replaced in 4 places IN RegisterAndEditDetailsPage.php
+1 matches (COMPLEX) for: 'Director::URLParam('
+   -- Replaced in 1 places IN RegisterAndEditDetailsPage.php
+1 matches (COMPLEX) for: 'DataObject::get('
+   -- Replaced in 1 places IN RegisterAndEditDetailsPage.php
+6 matches (COMPLEX) for: 'DataObject::get_one('
+   -- Replaced in 6 places IN RegisterAndEditDetailsPage.php
+1 matches (COMPLEX) for: '->IsAjax'
+   -- Replaced in 1 places IN RegisterAndEditDetailsPage.php
+3 matches (COMPLEX) for: '->addExtraClass('
+   -- Replaced in 3 places IN RegisterAndEditDetailsPage.php
+3 matches (COMPLEX) for: 'new HtmlEditorField'
+   -- Replaced in 3 places IN RegisterAndEditDetailsPage.php
+1 matches (COMPLEX) for: 'new CustomRequiredFields'
+   -- Replaced in 1 places IN RegisterAndEditDetailsPage.php
+
+------------------------------------
+Files Searched
+------------------------------------
+/_config.php
+/code/RegisterAndEditDetailsPage.php
+
+------------------------------------
+Summary: by search key
+------------------------------------
+11:	 Root.Content.
+6:	 DataObject::get_one(
+4:	 Director::redirectBack(
+3:	 new FieldSet
+3:	 new HtmlEditorField
+3:	 Director::redirect(
+3:	 ->addExtraClass(
+1:	 new CustomRequiredFields
+1:	 Director::URLParam(
+1:	 function canCreate()
+1:	 DataObject::get(
+1:	 ->IsAjax
+
+------------------------------------
+Summary: by directory
+------------------------------------
+38:	 /code
+
+------------------------------------
+Summary: by root directory (/)
+------------------------------------
+38:	 code/
+
+------------------------------------
+Total replacements: 38
+------------------------------------
+
+------------------------------------
+Files Searched
+------------------------------------
+/templates/Layout/RegisterAndEditDetailsPage.ss
+
+------------------------------------
+Summary: by search key
+------------------------------------
+
+------------------------------------
+Summary: by directory
+------------------------------------
+
+------------------------------------
+Summary: by root directory (/)
+------------------------------------
+
+------------------------------------
+Total replacements: 0
+------------------------------------
+3 matches (BASIC) for: 'protected static $'
+   -- Replaced in 3 places IN RegisterAndEditDetailsPage.php
+3 matches (BASIC) for: 'private static $'
+   -- Replaced in 3 places IN RegisterAndEditDetailsPage.php
+6 matches (BASIC) for: 'static $'
+   -- Replaced in 6 places IN RegisterAndEditDetailsPage.php
+3 matches (BASIC) for: 'private stat@@ic $'
+   -- Replaced in 3 places IN RegisterAndEditDetailsPage.php
+8 matches (COMPLEX) for: 'MetaTitle'
+   -- Replaced in 8 places IN RegisterAndEditDetailsPage.php
+4 matches (COMPLEX) for: '->filter('
+   -- Replaced in 4 places IN RegisterAndEditDetailsPage.php
+1 matches (COMPLEX) for: '->exclude('
+   -- Replaced in 1 places IN RegisterAndEditDetailsPage.php
+
+------------------------------------
+Files Searched
+------------------------------------
+/_config.php
+/code/RegisterAndEditDetailsPage.php
+
+------------------------------------
+Summary: by search key
+------------------------------------
+8:	 MetaTitle
+6:	 static $
+4:	 ->filter(
+3:	 private stat@@ic $
+3:	 protected static $
+3:	 private static $
+1:	 ->exclude(
+
+------------------------------------
+Summary: by directory
+------------------------------------
+28:	 /code
+
+------------------------------------
+Summary: by root directory (/)
+------------------------------------
+28:	 code/
+
+------------------------------------
+Total replacements: 28
+------------------------------------
