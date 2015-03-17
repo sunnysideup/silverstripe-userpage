@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<source xmlns="http://xml.phpdox.net/token">
+  <file xmlns="http://xml.phpdox.net/src" path="/var/www/_modules/userpage/trunk/docs/en/phpdox/../../.." file="_config.php" realpath="/var/www/_modules/userpage/trunk/_config.php" size="114" time="2015-03-14T10:22:54+13:00" unixtime="1426281774" sha1="0e7779fe007fab705e3c40587525e7b11781a83f" relative="_config.php"/>
+  <line no="1">
+    <token name="T_OPEN_TAG">&lt;?php</token>
+  </line>
+  <line no="2"/>
+  <line no="3">
+    <token name="T_DOC_COMMENT">/**</token>
+  </line>
+  <line no="4">
+    <token name="T_DOC_COMMENT">* developed by www.sunnysideup.co.nz</token>
+  </line>
+  <line no="5">
+    <token name="T_DOC_COMMENT">* author: Nicolaas - modules [at] sunnysideup.co.nz</token>
+  </line>
+  <line no="6">
+    <token name="T_DOC_COMMENT">**/</token>
+  </line>
+  <line no="7"/>
+  <line no="8"/>
+  <line no="9"/>
+</source>
