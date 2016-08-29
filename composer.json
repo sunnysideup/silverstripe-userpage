@@ -1,23 +1,31 @@
 {
-	"name": "sunnysideup/userpage",
-	"type": "silverstripe-module",
-	"description": "add a one-stop-shop for users: signup, update details, etc...",
-	"homepage": "http://www.silverstripe-webdevelopment.com",
-	"keywords": ["userpage", "silverstripe", "register", "users", "groups", "update details", "update member details", "user", "member"],
-	"license": "Sunny Side Up (BSD-3-Clause and CUSTOM)",
-	"authors":[
-		{
-			"name": "Nicolaas Francken",
-			"homepage": "https://github.com/sunnysideup",
-			"email" : "modules@sunnysideup.co.nz",
-			"role" : "lead developer"
-		}
-	],
-	"require":{
-		"silverstripe/framework": "~3.1",
-		"silverstripe/cms": "~3.1"
-	},
-	"extra": {
-		"installer-name": "userpage"
-	}
+    "name": "sunnysideup/userpage",
+    "type": "silverstripe-module",
+    "description": "add a one-stop-shop for users: signup, update details, etc...",
+    "keywords": [
+        "userpage",
+        "silverstripe",
+        "register",
+        "users",
+        "groups",
+        "update details",
+        "update member details",
+        "user",
+        "member"
+    ],
+    "license": "Sunny Side Up (BSD-3-Clause and CUSTOM)",
+    "authors": [
+        {
+            "name": "Nicolaas Francken",
+            "email": "modules@sunnysideup.co.nz",
+            "role": "lead developer"
+        }
+    ],
+    "require": {
+        "silverstripe/framework": "~3.1",
+        "silverstripe/cms": "~3.1"
+    },
+    "extra": {
+        "installer-name": "userpage"
+    }
 }
