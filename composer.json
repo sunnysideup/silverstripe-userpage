@@ -3,8 +3,10 @@
     "type": "silverstripe-module",
     "description": "add a one-stop-shop for users: signup, update details, etc...",
     "keywords": [
+        "Silverstripe-CMS",
+        "CMS",
+        "Silverstripe",
         "userpage",
-        "silverstripe",
         "register",
         "users",
         "groups",
