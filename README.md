@@ -15,7 +15,7 @@
 
  * [Developer Docs](docs/en/INDEX.md)
  * [User Guide](docs/en/userguide.md)
- * [API](http://ssmods.com/apis/userpage/docs/en/api/)
+ * [API Docs](http://docs.ssmods.com/sunnysideup/userpage)
 
 ## Requirements
 
