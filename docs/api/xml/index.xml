@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<index xmlns="http://xml.phpdox.net/src" basedir="/var/www/_modules/userpage/trunk">
-  <namespace name="">
-    <class name="RegisterAndEditDetailsPage" src="code/RegisterAndEditDetailsPage.php" description="Page containing an edit details form Uses Member::getMemberFormFields() to know what to make available for editing" xml="classes/RegisterAndEditDetailsPage.xml"/>
-    <class name="RegisterAndEditDetailsPage_Controller" src="code/RegisterAndEditDetailsPage.php" xml="classes/RegisterAndEditDetailsPage_Controller.xml"/>
-  </namespace>
-</index>

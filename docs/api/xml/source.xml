@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<source xmlns="http://xml.phpdox.net/src">
-  <dir name="/var/www/_modules/userpage/trunk">
-    <file name="_config.php" size="114" time="2015-03-14T10:22:54+13:00" unixtime="1426281774" sha1="0e7779fe007fab705e3c40587525e7b11781a83f" xml="tokens/_config.php.xml"/>
-    <dir name="code">
-      <file name="RegisterAndEditDetailsPage.php" size="12917" time="2015-03-14T10:22:54+13:00" unixtime="1426281774" sha1="2043a81b67e9cddf20ff7b34dbefda2d7b6f9fca" xml="tokens/code/RegisterAndEditDetailsPage.php.xml"/>
-    </dir>
-  </dir>
-</source>
